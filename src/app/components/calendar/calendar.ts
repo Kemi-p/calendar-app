@@ -51,11 +51,11 @@ export class Calendar {
   });
 
   prev(): void {
-    this.currentDate.update((curr) => subMonths(curr, 1));
+    this.currentDate.update((d) => subMonths(d, 1));
   }
 
   next(): void {
-    this.currentDate.update((curr) => addMonths(curr, 1));
+    this.currentDate.update((d) => addMonths(d, 1));
   }
 
   goToToday(): void {
