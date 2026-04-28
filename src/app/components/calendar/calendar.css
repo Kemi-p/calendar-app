@@ -1,0 +1,149 @@
+/* ── Shell ───────────────────────────────────────────────────────────────── */
+.cal-shell {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--p-surface-ground);
+  color: var(--p-text-color);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+.cal-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  padding: 1.5rem 1rem;
+  background: var(--p-surface-card);
+  border-right: 1px solid var(--p-surface-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-icon { font-size: 1.4rem; }
+
+.brand-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--p-primary-color);
+}
+
+/* ── Main ────────────────────────────────────────────────────────────────── */
+.cal-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--p-surface-border);
+  background: var(--p-surface-card);
+  flex-shrink: 0;
+}
+
+.cal-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.cal-year {
+  font-weight: 300;
+  color: var(--p-text-muted-color);
+}
+
+.nav-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--p-surface-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--p-text-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: var(--p-primary-color);
+    border-color: var(--p-primary-color);
+    color: #fff;
+  }
+}
+
+/* ── Calendar body ───────────────────────────────────────────────────────── */
+.cal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Day-of-week row ─────────────────────────────────────────────────────── */
+.dow-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid var(--p-surface-border);
+  background: var(--p-surface-ground);
+  flex-shrink: 0;
+}
+
+.dow-cell {
+  padding: 0.6rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--p-text-muted-color);
+
+  &.weekend {
+    color: var(--p-primary-color);
+    opacity: 0.8;
+  }
+}
+
+.month-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 4px;
+  padding: 0.5rem;
+}
+
+.day-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--p-surface-border);
+  background: var(--p-surface-card);
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+.day-cell:hover {
+    background: var(--p-surface-hover);
+    border-color: var(--p-primary-color);
+  }
+
+.day-number {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--p-text-muted-color);
+}
