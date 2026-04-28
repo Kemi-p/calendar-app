@@ -2,16 +2,21 @@
   <aside class="cal-sidebar">
     <div class="brand">
       <span class="brand-icon" class="pi pi-calendar-clock"></span>
-      <span class="brand-name">Medical Calendar</span>
+      <span class="brand-name">Staff Calendar</span>
     </div>
   </aside>
 
   <main class="cal-main">
     <header class="cal-header">
-      <h1 class="cal-title">Month</h1>
+      <div class="header-left">
+        <h1 class="cal-title">
+          {{ displayMonth() }} <span></span> <span class="cal-year">{{ displayYear() }}</span>
+        </h1>
+        <button class="today-btn" (click)="goToToday()">Back to today</button>
+      </div>
       <div class="nav-controls">
-        <button class="nav-btn">‹</button>
-        <button class="nav-btn">›</button>
+        <button class="nav-btn" (click)="prev()">‹</button>
+        <button class="nav-btn" (click)="next()">›</button>
       </div>
     </header>
 
@@ -25,10 +30,17 @@
       </div>
 
       <div class="month-grid">
-        @for (cell of emptyCells; track $index) {
-          <div class="day-cell">
-            <span class="day-number">num</span>
-          </div>
+        @for (week of weeks(); track $index) {
+          @for (day of week; track day.date.toISOString()) {
+            <div
+              class="day-cell"
+              [class.other-month]="!day.isCurrentMonth"
+              [class.today]="day.isToday"
+              [class.weekend]="day.isWeekend"
+            >
+              <span class="day-number">{{ formatDay(day.date) }}</span>
+            </div>
+          }
         }
       </div>
     </div>
