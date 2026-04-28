@@ -1,4 +1,3 @@
-/* ── Shell ───────────────────────────────────────────────────────────────── */
 .cal-shell {
   display: flex;
   height: 100vh;
@@ -7,8 +6,6 @@
   background: var(--p-surface-ground);
   color: var(--p-text-color);
 }
-
-/* ── Sidebar ─────────────────────────────────────────────────────────────── */
 .cal-sidebar {
   width: 200px;
   flex-shrink: 0;
@@ -23,7 +20,9 @@
   gap: 0.5rem;
 }
 
-.brand-icon { font-size: 1.4rem; }
+.brand-icon {
+  font-size: 1.4rem;
+}
 
 .brand-name {
   font-size: 1rem;
@@ -31,7 +30,6 @@
   color: var(--p-primary-color);
 }
 
-/* ── Main ────────────────────────────────────────────────────────────────── */
 .cal-main {
   flex: 1;
   display: flex;
@@ -39,7 +37,6 @@
   overflow: hidden;
 }
 
-/* ── Header ──────────────────────────────────────────────────────────────── */
 .cal-header {
   display: flex;
   align-items: center;
@@ -78,16 +75,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-
-  &:hover {
-    background: var(--p-primary-color);
-    border-color: var(--p-primary-color);
-    color: #fff;
-  }
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 }
 
-/* ── Calendar body ───────────────────────────────────────────────────────── */
+.nav-btn:hover {
+  background-color: var(--p-primary-color);
+  border-color: var(--p-primary-color);
+  color: #fff;
+}
+
 .cal-body {
   flex: 1;
   display: flex;
@@ -95,7 +94,6 @@
   overflow: hidden;
 }
 
-/* ── Day-of-week row ─────────────────────────────────────────────────────── */
 .dow-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -111,11 +109,11 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--p-text-muted-color);
+}
 
-  &.weekend {
-    color: var(--p-primary-color);
-    opacity: 0.8;
-  }
+.dow-cell.weekend {
+  color: var(--p-primary-color);
+  opacity: 0.8;
 }
 
 .month-grid {
@@ -135,12 +133,14 @@
   border: 1px solid var(--p-surface-border);
   background: var(--p-surface-card);
   cursor: pointer;
-  transition: background-color 0.12s, border-color 0.12s;
+  transition:
+    background-color 0.12s,
+    border-color 0.12s;
 }
 .day-cell:hover {
-    background: var(--p-surface-hover);
-    border-color: var(--p-primary-color);
-  }
+  background: var(--p-surface-hover);
+  border-color: var(--p-primary-color);
+}
 
 .day-number {
   font-size: 0.8rem;
