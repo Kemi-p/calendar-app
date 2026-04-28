@@ -158,6 +158,45 @@
   color: var(--p-primary-color);
   font-weight: 700;
 }
-.day-cell.other-month .day-number {
+.day-cell.other-month {
   visibility: hidden;
+}
+
+.holiday-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--p-primary-color);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.holiday-label {
+  font-size: 0.6rem;
+  color: var(--p-primary-color);
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.today-btn {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--p-surface-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--p-text-color);
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.today-btn:hover {
+  border-color: var(--p-primary-color);
+  color: var(--p-primary-color);
 }
