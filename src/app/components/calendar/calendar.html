@@ -1,0 +1,36 @@
+<div class="cal-shell">
+  <aside class="cal-sidebar">
+    <div class="brand">
+      <span class="brand-icon" class="pi pi-calendar-clock"></span>
+      <span class="brand-name">Medical Calendar</span>
+    </div>
+  </aside>
+
+  <main class="cal-main">
+    <header class="cal-header">
+      <h1 class="cal-title">Month</h1>
+      <div class="nav-controls">
+        <button class="nav-btn">‹</button>
+        <button class="nav-btn">›</button>
+      </div>
+    </header>
+
+    <div class="cal-body">
+      <div class="dow-row">
+        @for (day of weekDayLabels; track day) {
+          <div class="dow-cell" [class.weekend]="day === 'Sat' || day === 'Sun'">
+            {{ day }}
+          </div>
+        }
+      </div>
+
+      <div class="month-grid">
+        @for (cell of emptyCells; track $index) {
+          <div class="day-cell">
+            <span class="day-number">num</span>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+</div>
