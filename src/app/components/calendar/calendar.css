@@ -35,6 +35,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: rgb(241, 153, 140) solid 1px; /*TAKE OUT ==================================================*/
 }
 
 .cal-header {
@@ -130,7 +131,7 @@
   flex-direction: column;
   padding: 0.5rem;
   border-radius: 8px;
-  border: 1px solid var(--p-surface-border);
+  border: 1px solid rgb(234, 203, 194);
   background: var(--p-surface-card);
   cursor: pointer;
   transition:
@@ -146,4 +147,17 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--p-text-muted-color);
+}
+
+.day-cell.today {
+  border-color: var(--p-primary-color);
+  background: var(--p-highlight-background);
+}
+
+.day-cell.today .day-number {
+  color: var(--p-primary-color);
+  font-weight: 700;
+}
+.day-cell.other-month .day-number {
+  visibility: hidden;
 }
