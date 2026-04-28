@@ -1,5 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
-import { CalendarDay } from '../../calDay';
+import { Component, computed, OnInit, signal } from '@angular/core';
+import { CalendarDay } from '../../models/calDay';
+
 import {
   startOfMonth,
   endOfMonth,
@@ -24,8 +25,6 @@ import {
 })
 export class Calendar {
   weekDayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-  emptyCells = Array(35).fill(null);
 
   readonly currentDate = signal<Date>(new Date());
 

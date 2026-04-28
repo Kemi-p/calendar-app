@@ -6,7 +6,7 @@ import { Calendar } from './components/calendar/calendar';
   selector: 'app-root',
   imports: [Calendar],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('calendar-app');
