@@ -42,8 +42,10 @@
             >
               <span class="day-number">{{ formatDay(day.date) }}</span>
               @if (day.isHoliday && day.isCurrentMonth) {
-                <span class="holiday-dot" [title]="day.holidayName!"></span>
-                <span class="holiday-label">{{ day.holidayName }}</span>
+                <div class="holiday-row">
+                  <span class="holiday-dot" [title]="day.holidayName!"></span>
+                  <span class="holiday-label">{{ day.holidayName }}</span>
+                </div>
               }
             </div>
           }

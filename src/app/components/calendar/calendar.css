@@ -161,6 +161,11 @@
 .day-cell.other-month {
   visibility: hidden;
 }
+.holiday-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
 .holiday-dot {
   width: 6px;
@@ -172,7 +177,7 @@
 }
 
 .holiday-label {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   color: var(--p-primary-color);
   line-height: 1.2;
   overflow: hidden;
