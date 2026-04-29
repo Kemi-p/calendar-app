@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
 import { CalendarDay } from '../../models/calDay';
 
 import {
@@ -28,6 +28,9 @@ export class Calendar implements OnInit {
   private readonly holidayService = inject(HolidayService);
 
   weekDayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  readonly isDark = input<boolean>(false);
+  readonly darkToggle = output<void>();
 
   readonly currentDate = signal<Date>(new Date());
 
@@ -76,6 +79,10 @@ export class Calendar implements OnInit {
         this.isLoading.set(false);
       },
     });
+  }
+
+  onDarkToggle(): void {
+    this.darkToggle.emit();
   }
 
   prev(): void {
