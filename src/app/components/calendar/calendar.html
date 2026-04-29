@@ -4,6 +4,19 @@
       <span class="brand-icon pi pi-calendar-clock"></span>
       <span class="brand-name">Staff Calendar</span>
     </div>
+
+    <div class="sidebar-spacer"></div>
+    <button
+      class="dark-btn"
+      (click)="onDarkToggle()"
+      [title]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+    >
+      @if (isDark()) {
+        <i class="pi pi-sun"></i>
+      } @else {
+        <i class="pi pi-moon"></i>
+      }
+    </button>
   </aside>
 
   <main class="cal-main">
