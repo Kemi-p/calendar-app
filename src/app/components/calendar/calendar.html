@@ -126,9 +126,35 @@
     }
 
     @if (activeView() === 'year') {
-      <div class="stub-view">
-        <p class="stub-title">Year View</p>
-        <p class="stub-sub">Coming soon</p>
+      <div class="year-view">
+        @for (month of yearMonthGrids(); track month.index) {
+          <div
+            class="year-month"
+            [class.current-month]="month.isCurrent"
+            (click)="jumpToMonth(month.index)"
+          >
+            <p class="year-month-label">{{ month.label }}</p>
+            <div class="mini-dow">
+              @for (d of weekDayLabelsShort; track $index) {
+                <span>{{ d }}</span>
+              }
+            </div>
+            <div class="mini-grid">
+              @for (week of month.rows; track $index) {
+                @for (day of week; track day.date.toISOString()) {
+                  <span
+                    class="mini-day"
+                    [class.other-month]="!day.isCurrentMonth"
+                    [class.today]="day.isToday"
+                    [class.weekend]="day.isWeekend"
+                  >
+                    {{ day.isCurrentMonth ? formatDay(day.date) : '' }}
+                  </span>
+                }
+              }
+            </div>
+          </div>
+        }
       </div>
     }
   </main>

@@ -6,6 +6,7 @@
   background: var(--p-surface-ground);
   color: var(--p-text-color);
 }
+
 .cal-sidebar {
   width: 200px;
   flex-shrink: 0;
@@ -16,6 +17,7 @@
   border-right: 1px solid var(--p-surface-border);
   gap: 1.5rem;
 }
+
 .brand {
   display: flex;
   align-items: center;
@@ -102,7 +104,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: rgb(241, 153, 140) solid 1px; /*TAKE OUT ==================================================*/
+  border: rgb(241, 153, 140) solid 1px;
+  /*TAKE OUT ==================================================*/
 }
 
 .cal-header {
@@ -205,6 +208,7 @@
     background-color 0.12s,
     border-color 0.12s;
 }
+
 .day-cell:hover {
   background: var(--p-surface-hover);
   border-color: var(--p-primary-color);
@@ -225,9 +229,11 @@
   color: var(--p-primary-color);
   font-weight: 700;
 }
+
 .day-cell.other-month {
   visibility: hidden;
 }
+
 .holiday-row {
   display: flex;
   align-items: center;
@@ -360,6 +366,7 @@
 .week-cell:hover {
   background: var(--p-highlight-color);
 }
+
 .week-cell.todday:hover {
   background: var(--p-highlight-color);
 }
@@ -370,4 +377,88 @@
 
 .week-cell.weekend {
   opacity: 0.6;
+}
+
+.year-view {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--p-surface-border);
+  overflow: hidden;
+}
+
+.year-month {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  background: var(--p-surface-card);
+  cursor: pointer;
+  transition: background-color 0.15s;
+  gap: 0.4rem;
+  overflow: hidden;
+}
+
+.year-month:hover {
+  background: var(--p-surface-hover);
+}
+
+.year-month.current-month {
+  background: var(--p-highlight-background);
+}
+
+.year-month-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--p-text-color);
+}
+
+.year-month.current-month .year-month-label {
+  color: var(--p-primary-color);
+}
+
+.mini-dow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.mini-dow span {
+  font-size: 0.55rem;
+  text-align: center;
+  color: var(--p-text-muted-color);
+  font-weight: 600;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  flex: 1;
+}
+
+.mini-day {
+  font-size: 0.6rem;
+  text-align: center;
+  color: var(--p-text-color);
+  border-radius: 3px;
+  padding: 1px 0;
+  line-height: 1.6;
+}
+
+.mini-day.other-month {
+  opacity: 0;
+}
+
+.mini-day.today {
+  background: var(--p-primary-color);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+.mini-day.weekend:not(.other-month) {
+  color: var(--p-primary-color);
+  opacity: 0.8;
 }
