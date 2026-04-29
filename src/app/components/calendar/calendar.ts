@@ -19,6 +19,7 @@ import {
 import { HolidayService } from '../../services/holidayService';
 
 export type CalendarView = 'month' | 'week' | 'year';
+const week_hours = Array.from({ length: 14 }, (_, i) => i + 7);
 @Component({
   selector: 'app-calendar',
   imports: [],
