@@ -73,6 +73,29 @@
   font-weight: 600;
 }
 
+.sidebar-spacer {
+  flex: 1;
+}
+
+.dark-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--p-surface-border);
+  border-radius: 8px;
+  color: var(--p-text-muted-color);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-btn:hover {
+  background: var(--p-surface-hover);
+  color: var(--p-primary-color);
+  border-color: var(--p-primary-color);
+}
+
 .cal-main {
   flex: 1;
   display: flex;
