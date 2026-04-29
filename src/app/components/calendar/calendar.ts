@@ -15,6 +15,10 @@ import {
   isSunday,
   format,
   getYear,
+  getMonth,
+  getHours,
+  subWeeks,
+  addWeeks,
 } from 'date-fns';
 import { HolidayService } from '../../services/holidayService';
 
@@ -46,6 +50,7 @@ export class Calendar implements OnInit {
   readonly displayMonth = computed(() => format(this.currentDate(), 'MMMM'));
   readonly displayYear = computed(() => getYear(this.currentDate()));
 
+  //month
   readonly weeks = computed<CalendarDay[][]>(() => {
     const current = this.currentDate();
     const holidays = this.holidayMap();
@@ -71,6 +76,39 @@ export class Calendar implements OnInit {
     return rows;
   });
 
+  //week
+  weekDays = computed<CalendarDay[]>(() => {
+    const current = this.currentDate();
+    const holidays = this.holidayMap();
+    const start = startOfWeek(current, { weekStartsOn: 1 });
+    const end = endOfWeek(current, { weekStartsOn: 1 });
+
+    return eachDayOfInterval({ start, end }).map((date) => {
+      const key = format(date, 'yyyy-MM-dd');
+      const holidayName = holidays.get(key) ?? null;
+      return {
+        date,
+        isCurrentMonth: isSameMonth(date, current),
+        isToday: isToday(date),
+        isWeekend: isSaturday(date) || isSunday(date),
+        isHoliday: holidayName !== null,
+        holidayName,
+      };
+    });
+  });
+
+  readonly weekRange = computed(() => {
+    const days = this.weekDays();
+    const first = days[0].date;
+    const last = days[6].date;
+    if (getMonth(first) === getMonth(last)) {
+      return `${format(first, 'd')} – ${format(last, 'd MMM yyyy')}`;
+    }
+    return `${format(first, 'd MMM')} – ${format(last, 'd MMM yyyy')}`;
+  });
+
+  readonly weekHours = week_hours;
+
   ngOnInit(): void {
     this.isLoading.set(true);
     this.holidayService.getHolidays().subscribe({
@@ -90,11 +128,15 @@ export class Calendar implements OnInit {
   }
 
   prev(): void {
-    this.currentDate.update((d) => subMonths(d, 1));
+    const view = this.activeView();
+    if (view === 'month') this.currentDate.update((d) => subMonths(d, 1));
+    else if (view === 'week') this.currentDate.update((d) => subWeeks(d, 1));
   }
 
   next(): void {
-    this.currentDate.update((d) => addMonths(d, 1));
+    const view = this.activeView();
+    if (view === 'month') this.currentDate.update((d) => addMonths(d, 1));
+    else if (view === 'week') this.currentDate.update((d) => addWeeks(d, 1));
   }
 
   goToToday(): void {
@@ -107,5 +149,11 @@ export class Calendar implements OnInit {
 
   formatDay(date: Date): string {
     return format(date, 'd');
+  }
+  formatHour(h: number): string {
+    return `${h.toString().padStart(2, '0')}:00`;
+  }
+  formatWeekDay(date: Date): string {
+    return format(date, 'EEE d');
   }
 }

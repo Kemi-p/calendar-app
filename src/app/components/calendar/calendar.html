@@ -91,9 +91,37 @@
     }
 
     @if (activeView() === 'week') {
-      <div class="stub-view">
-        <p class="stub-title">Week View</p>
-        <p class="stub-sub">Coming soon</p>
+      <div class="week-view">
+        <div class="week-header">
+          <div class="week-gutter"></div>
+          @for (day of weekDays(); track day.date.toISOString()) {
+            <div
+              class="week-day-header"
+              [class.today]="day.isToday"
+              [class.weekend]="day.isWeekend"
+            >
+              <span class="week-day-label">{{ formatWeekDay(day.date) }}</span>
+              @if (day.isHoliday) {
+                <span class="holiday-dot-sm" [title]="day.holidayName!"></span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="week-body">
+          @for (hour of weekHours; track hour) {
+            <div class="week-row">
+              <div class="week-time">{{ formatHour(hour) }}</div>
+              @for (day of weekDays(); track day.date.toISOString()) {
+                <div
+                  class="week-cell"
+                  [class.today]="day.isToday"
+                  [class.weekend]="day.isWeekend"
+                ></div>
+              }
+            </div>
+          }
+        </div>
       </div>
     }
 
