@@ -1,7 +1,7 @@
 <div class="cal-shell">
   <aside class="cal-sidebar">
     <div class="brand">
-      <span class="brand-icon" class="pi pi-calendar-clock"></span>
+      <span class="brand-icon pi pi-calendar-clock"></span>
       <span class="brand-name">Staff Calendar</span>
     </div>
   </aside>
@@ -37,8 +37,16 @@
               [class.other-month]="!day.isCurrentMonth"
               [class.today]="day.isToday"
               [class.weekend]="day.isWeekend"
+              [class.holiday]="day.isHoliday"
+              [title]="day.holidayName ?? ''"
             >
               <span class="day-number">{{ formatDay(day.date) }}</span>
+              @if (day.isHoliday && day.isCurrentMonth) {
+                <div class="holiday-row">
+                  <span class="holiday-dot" [title]="day.holidayName!"></span>
+                  <span class="holiday-label">{{ day.holidayName }}</span>
+                </div>
+              }
             </div>
           }
         }

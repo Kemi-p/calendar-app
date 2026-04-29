@@ -3,4 +3,6 @@ export interface CalendarDay {
   isCurrentMonth: boolean;
   isToday: boolean;
   isWeekend: boolean;
+  isHoliday: boolean;
+  holidayName: string | null;
 }
