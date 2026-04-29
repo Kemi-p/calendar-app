@@ -80,6 +80,7 @@
 .dark-btn {
   width: 36px;
   height: 36px;
+  background: transparent;
   border: 1px solid var(--p-surface-border);
   border-radius: 8px;
   color: var(--p-text-muted-color);

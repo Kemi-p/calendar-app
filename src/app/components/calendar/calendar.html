@@ -5,19 +5,6 @@
       <span class="brand-name">Staff Calendar</span>
     </div>
 
-    <div class="sidebar-spacer"></div>
-    <button
-      class="dark-btn"
-      (click)="onDarkToggle()"
-      [title]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
-    >
-      @if (isDark()) {
-        <i class="pi pi-sun"></i>
-      } @else {
-        <i class="pi pi-moon"></i>
-      }
-    </button>
-
     <nav class="sidebar-nav">
       <p class="nav-label">View</p>
       <button class="view-btn" [class.active]="activeView() === 'month'" (click)="setView('month')">
@@ -30,10 +17,22 @@
         Year
       </button>
     </nav>
+
+    <div class="sidebar-spacer"></div>
+    <button
+      class="dark-btn"
+      (click)="onDarkToggle()"
+      [title]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+    >
+      @if (isDark()) {
+        <i class="pi pi-sun"></i>
+      } @else {
+        <i class="pi pi-moon"></i>
+      }
+    </button>
   </aside>
 
   <main class="cal-main">
-    <!-- Header -->
     <header class="cal-header">
       <div class="header-left">
         <h1 class="cal-title">
