@@ -1,3 +1,4 @@
+import { Reminder } from './reminder';
 export interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
@@ -5,4 +6,5 @@ export interface CalendarDay {
   isWeekend: boolean;
   isHoliday: boolean;
   holidayName: string | null;
+  reminders?: Reminder[];
 }

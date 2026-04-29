@@ -8,13 +8,13 @@
     <nav class="sidebar-nav">
       <p class="nav-label">View</p>
       <button class="view-btn" [class.active]="activeView() === 'month'" (click)="setView('month')">
-        Month
+        <i class="pi pi-calendar"></i> Month
       </button>
       <button class="view-btn" [class.active]="activeView() === 'week'" (click)="setView('week')">
-        Week
+        <i class="pi pi-table"></i> Week
       </button>
       <button class="view-btn" [class.active]="activeView() === 'year'" (click)="setView('year')">
-        Year
+        <i class="pi pi-th-large"></i> Year
       </button>
     </nav>
 
