@@ -18,6 +18,7 @@ import {
 } from 'date-fns';
 import { HolidayService } from '../../services/holidayService';
 
+export type CalendarView = 'month' | 'week' | 'year';
 @Component({
   selector: 'app-calendar',
   imports: [],
@@ -28,6 +29,8 @@ export class Calendar implements OnInit {
   private readonly holidayService = inject(HolidayService);
 
   weekDayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  activeView = signal<CalendarView>('month');
 
   readonly currentDate = signal<Date>(new Date());
 
@@ -88,6 +91,10 @@ export class Calendar implements OnInit {
 
   goToToday(): void {
     this.currentDate.set(new Date());
+  }
+
+  setView(view: CalendarView): void {
+    this.activeView.set(view);
   }
 
   formatDay(date: Date): string {

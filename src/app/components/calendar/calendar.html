@@ -4,15 +4,29 @@
       <span class="brand-icon pi pi-calendar-clock"></span>
       <span class="brand-name">Staff Calendar</span>
     </div>
+
+    <nav class="sidebar-nav">
+      <p class="nav-label">View</p>
+      <button class="view-btn" [class.active]="activeView() === 'month'" (click)="setView('month')">
+        Month
+      </button>
+      <button class="view-btn" [class.active]="activeView() === 'week'" (click)="setView('week')">
+        Week
+      </button>
+      <button class="view-btn" [class.active]="activeView() === 'year'" (click)="setView('year')">
+        Year
+      </button>
+    </nav>
   </aside>
 
   <main class="cal-main">
+    <!-- Header -->
     <header class="cal-header">
       <div class="header-left">
         <h1 class="cal-title">
-          {{ displayMonth() }} <span></span> <span class="cal-year">{{ displayYear() }}</span>
+          {{ displayMonth() }}&nbsp;<span class="cal-year">{{ displayYear() }}</span>
         </h1>
-        <button class="today-btn" (click)="goToToday()">Back to today</button>
+        <button class="today-btn" (click)="goToToday()">Today</button>
       </div>
       <div class="nav-controls">
         <button class="nav-btn" (click)="prev()">‹</button>
@@ -20,37 +34,62 @@
       </div>
     </header>
 
-    <div class="cal-body">
-      <div class="dow-row">
-        @for (day of weekDayLabels; track day) {
-          <div class="dow-cell" [class.weekend]="day === 'Sat' || day === 'Sun'">
-            {{ day }}
-          </div>
+    @if (activeView() === 'month') {
+      <div class="cal-body">
+        @if (isLoading()) {
+          <div class="status-bar loading">Loading public holidays…</div>
         }
-      </div>
 
-      <div class="month-grid">
-        @for (week of weeks(); track $index) {
-          @for (day of week; track day.date.toISOString()) {
-            <div
-              class="day-cell"
-              [class.other-month]="!day.isCurrentMonth"
-              [class.today]="day.isToday"
-              [class.weekend]="day.isWeekend"
-              [class.holiday]="day.isHoliday"
-              [title]="day.holidayName ?? ''"
-            >
-              <span class="day-number">{{ formatDay(day.date) }}</span>
-              @if (day.isHoliday && day.isCurrentMonth) {
-                <div class="holiday-row">
-                  <span class="holiday-dot" [title]="day.holidayName!"></span>
-                  <span class="holiday-label">{{ day.holidayName }}</span>
-                </div>
-              }
+        @if (loadError()) {
+          <div class="status-bar error">Could not load holidays. Calendar still works.</div>
+        }
+
+        <div class="dow-row">
+          @for (day of weekDayLabels; track day) {
+            <div class="dow-cell" [class.weekend]="day === 'Sat' || day === 'Sun'">
+              {{ day }}
             </div>
           }
-        }
+        </div>
+
+        <div class="month-grid">
+          @for (week of weeks(); track $index) {
+            @for (day of week; track day.date.toISOString()) {
+              <div
+                class="day-cell"
+                [class.other-month]="!day.isCurrentMonth"
+                [class.today]="day.isToday"
+                [class.weekend]="day.isWeekend"
+                [class.holiday]="day.isHoliday"
+                [title]="day.holidayName ?? ''"
+              >
+                <span class="day-number">{{ formatDay(day.date) }}</span>
+
+                @if (day.isHoliday && day.isCurrentMonth) {
+                  <div class="holiday-row">
+                    <span class="holiday-dot" [title]="day.holidayName!"></span>
+                    <span class="holiday-label">{{ day.holidayName }}</span>
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
       </div>
-    </div>
+    }
+
+    @if (activeView() === 'week') {
+      <div class="stub-view">
+        <p class="stub-title">Week View</p>
+        <p class="stub-sub">Coming soon</p>
+      </div>
+    }
+
+    @if (activeView() === 'year') {
+      <div class="stub-view">
+        <p class="stub-title">Year View</p>
+        <p class="stub-sub">Coming soon</p>
+      </div>
+    }
   </main>
 </div>

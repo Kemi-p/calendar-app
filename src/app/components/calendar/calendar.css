@@ -205,3 +205,23 @@
   border-color: var(--p-primary-color);
   color: var(--p-primary-color);
 }
+
+.stub-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.stub-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+}
+
+.stub-sub {
+  font-size: 0.85rem;
+  color: var(--p-text-muted-color);
+}
