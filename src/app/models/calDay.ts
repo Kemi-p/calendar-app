@@ -1,4 +1,4 @@
-import { Reminder } from './reminder';
+import { CalEvent } from './events';
 export interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
@@ -6,5 +6,5 @@ export interface CalendarDay {
   isWeekend: boolean;
   isHoliday: boolean;
   holidayName: string | null;
-  reminders?: Reminder[];
+  events?: CalEvent[];
 }

@@ -16,7 +16,6 @@ import {
   format,
   getYear,
   getMonth,
-  getHours,
   subWeeks,
   addWeeks,
   subYears,
@@ -194,5 +193,11 @@ export class Calendar implements OnInit {
   }
   formatWeekDay(date: Date): string {
     return format(date, 'EEE d');
+  }
+
+  selectedDay: CalendarDay | null = null;
+
+  selectDay(day: CalendarDay) {
+    this.selectedDay = day;
   }
 }
