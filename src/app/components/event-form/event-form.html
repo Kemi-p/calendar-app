@@ -1,1 +1,105 @@
-<p>event-form works!</p>
+<p-dialog
+  [visible]="visible()"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="ef-dialog"
+  [style]="{ width: 'min(560px, calc(100vw - 2rem))' }"
+>
+  <ng-template pTemplate="header">
+    <div class="ef-header">
+      <span class="pi pi-calendar-plus"></span>
+      <span>New Event</span>
+    </div>
+  </ng-template>
+
+  <div class="ef-body">
+    <div class="ef-type-row">
+      <button
+        class="ef-type-btn"
+        [class.active]="selectedType() === 'appointment'"
+        (click)="onTypeChange('appointment')"
+        [attr.aria-pressed]="selectedType() === 'appointment'"
+        aria-label="Select appointment type"
+        type="button"
+      >
+        Appointment
+      </button>
+
+      <button
+        class="ef-type-btn"
+        [class.active]="selectedType() === 'reminder'"
+        (click)="onTypeChange('reminder')"
+        [attr.aria-pressed]="selectedType() === 'reminder'"
+        aria-label="Select reminder type"
+        type="button"
+      >
+        Reminder
+      </button>
+    </div>
+
+    <form [formGroup]="form" class="ef-form">
+      <div class="ef-field">
+        <label>Title *</label>
+        <input pInputText formControlName="title" />
+
+        @if (form.controls.title.touched && form.controls.title.errors?.['required']) {
+          <span class="ef-error">Title is required</span>
+        }
+      </div>
+
+      <div class="ef-field">
+        <label>Description</label>
+        <textarea pTextarea formControlName="description"></textarea>
+      </div>
+
+      <div class="ef-field">
+        <label>Date *</label>
+        <p-datepicker
+          formControlName="date"
+          [showIcon]="true"
+          dateFormat="yy-mm-dd"
+          [firstDayOfWeek]="1"
+          appendTo="body"
+        />
+
+        @if (form.controls.date.touched && form.controls.date.errors?.['required']) {
+          <span class="ef-error">Date is required</span>
+        }
+      </div>
+
+      <div class="ef-field">
+        <label>Time *</label>
+        <p-datepicker
+          [ngModel]="timeValue()"
+          (ngModelChange)="timeValue.set($event)"
+          [timeOnly]="true"
+          hourFormat="24"
+          appendTo="body"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+
+      @if (isAppointment()) {
+        <div class="ef-field">
+          <label>Appointment Type</label>
+
+          <p-select
+            formControlName="appointmentType"
+            [options]="appointmentTypes"
+            appendTo="body"
+            scrollHeight="220px"
+          ></p-select>
+        </div>
+      }
+    </form>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="ef-footer">
+      <button class="ef-btn" type="button" (click)="cancel()">Cancel</button>
+      <button class="ef-btn primary" type="button" (click)="submit()">Save</button>
+    </div>
+  </ng-template>
+</p-dialog>

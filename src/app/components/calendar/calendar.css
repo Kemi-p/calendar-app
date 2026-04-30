@@ -35,6 +35,28 @@
   letter-spacing: -0.02em;
 }
 
+.add-event-btn {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--p-primary-color);
+  color: #fff;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background-color 0.15s;
+}
+
+.add-event-btn:hover {
+  background: var(--p-primary-hover-color, color-mix(in srgb, var(--p-primary-color) 85%, black));
+}
+
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -105,7 +127,6 @@
   flex-direction: column;
   overflow: hidden;
   border: rgb(241, 153, 140) solid 1px;
-  /*TAKE OUT ==================================================*/
 }
 
 .cal-header {
@@ -122,6 +143,12 @@
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.03em;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .cal-year {
@@ -184,16 +211,17 @@
 
 .dow-cell.weekend {
   color: var(--p-primary-color);
-  opacity: 0.8;
+  font-weight: 700;
 }
 
 .month-grid {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-auto-rows: minmax(0, 1fr);
   gap: 4px;
   padding: 0.5rem;
+  overflow: hidden;
 }
 
 .day-cell {
@@ -207,6 +235,8 @@
   transition:
     background-color 0.12s,
     border-color 0.12s;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .day-cell:hover {
@@ -214,10 +244,17 @@
   border-color: var(--p-primary-color);
 }
 
+.day-cell-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
 .day-number {
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--p-text-muted-color);
+  color: var(--p-text-color);
 }
 
 .day-cell.today {
@@ -226,18 +263,13 @@
 }
 
 .day-cell.today .day-number {
-  color: var(--p-primary-color);
+  color: #fff;
   font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .day-cell.other-month {
   visibility: hidden;
-}
-
-.holiday-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .holiday-dot {
@@ -246,16 +278,20 @@
   border-radius: 50%;
   background: var(--p-primary-color);
   flex-shrink: 0;
-  margin-top: 2px;
+}
+
+.holiday-row {
+  margin-bottom: 0.15rem;
 }
 
 .holiday-label {
-  font-size: 0.9rem;
+  font-size: 0.62rem;
   color: var(--p-primary-color);
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: block;
   width: 100%;
 }
 
@@ -279,186 +315,43 @@
   color: var(--p-primary-color);
 }
 
-/*week styjng*/
-.week-view {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.week-header {
-  display: grid;
-  grid-template-columns: 56px repeat(7, 1fr);
-  border-bottom: 1px solid var(--p-surface-border);
-  background: var(--p-surface-card);
-  flex-shrink: 0;
-}
-
-.week-gutter {
-  border-right: 1px solid var(--p-surface-border);
-}
-
-.week-day-header {
+.cal-reminder-overlay {
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 0.25rem;
-  gap: 0.25rem;
-  border-right: 1px solid var(--p-surface-border);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--p-text-muted-color);
-  transition: background-color 0.12s;
-}
-
-.week-day-header.today {
-  color: var(--p-primary-color);
-}
-
-.week-day-header.weekend {
-  color: var(--p-primary-color);
-  opacity: 0.8;
-}
-
-.week-day-label {
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.holiday-dot-sm {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--p-primary-color);
-}
-
-.week-body {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.week-row {
-  display: grid;
-  grid-template-columns: 56px repeat(7, 1fr);
-  border-bottom: 1px solid var(--p-primary-color);
-  min-height: 48px;
-}
-
-.week-time {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0.25rem 0;
-  font-size: 0.65rem;
-  color: var(--p-text-muted-color);
-  border-right: 1px solid var(--p-surface-border);
-  transform: translateY(-0.5em);
-}
-
-.week-cell {
-  border-right: 1px solid var(--p-primary-color);
-  transition: background-color 0.12s;
-  cursor: pointer;
-}
-
-.week-cell:hover {
-  background: var(--p-highlight-color);
-}
-
-.week-cell.todday:hover {
-  background: var(--p-highlight-color);
-}
-
-.week-cell.today {
-  background: var(--p-highlight-background);
-}
-
-.week-cell.weekend {
-  opacity: 0.6;
-}
-
-.year-view {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--p-surface-border);
-  overflow: hidden;
-}
-
-.year-month {
-  display: flex;
-  flex-direction: column;
-  padding: 0.75rem;
-  background: var(--p-surface-card);
-  cursor: pointer;
-  transition: background-color 0.15s;
-  gap: 0.4rem;
-  overflow: hidden;
-}
-
-.year-month:hover {
-  background: var(--p-surface-hover);
-}
-
-.year-month.current-month {
-  background: var(--p-highlight-background);
-}
-
-.year-month-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--p-text-color);
-}
-
-.year-month.current-month .year-month-label {
-  color: var(--p-primary-color);
-}
-
-.mini-dow {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-}
-
-.mini-dow span {
-  font-size: 0.55rem;
-  text-align: center;
-  color: var(--p-text-muted-color);
-  font-weight: 600;
-}
-
-.mini-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  flex: 1;
-}
-
-.mini-day {
-  font-size: 0.6rem;
-  text-align: center;
-  color: var(--p-text-color);
-  border-radius: 3px;
-  padding: 1px 0;
-  line-height: 1.6;
-}
-
-.mini-day.other-month {
-  opacity: 0;
-}
-
-.mini-day.today {
-  background: var(--p-primary-color);
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
   color: #fff;
-  font-weight: 700;
-  border-radius: 50%;
+  text-align: center;
+  padding: 2rem;
+  z-index: 9999;
+  cursor: pointer;
 }
 
-.mini-day.weekend:not(.other-month) {
+.blockui-spinner {
+  font-size: 2.5rem;
   color: var(--p-primary-color);
-  opacity: 0.8;
+}
+
+.blockui-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.blockui-desc {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.blockui-hint {
+  font-size: 0.72rem;
+  opacity: 0.5;
+  margin: 0;
+  margin-top: 0.5rem;
 }

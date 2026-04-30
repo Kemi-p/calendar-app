@@ -18,12 +18,15 @@ export interface CalEvent {
   appointmentType: AppointmentType | null;
 }
 
-// Colour per appointment type — used in the day cell badge
 export const APPOINTMENT_COLOURS: Record<AppointmentType, string> = {
-  'General Check-up': '#3b82f6',
-  'Blood Test': '#ef4444',
-  'Follow-up': '#f59e0b',
-  'Mental Health': '#8b5cf6',
-  'Prescription Refill': '#10b981',
-  'Lab Results': '#06b6d4',
+  'General Check-up': '#e57373',
+  'Blood Test': '#ef9a9a',
+
+  'Follow-up': '#f0c27b',
+
+  'Mental Health': '#b39ddb',
+
+  'Prescription Refill': '#81c7a6',
+
+  'Lab Results': '#7ec8d8',
 };

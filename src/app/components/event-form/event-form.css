@@ -1,0 +1,165 @@
+/* Dialog container */
+.ef-dialog {
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+}
+
+:host ::ng-deep .ef-dialog {
+  max-height: calc(100vh - 2rem);
+}
+
+:host ::ng-deep .ef-dialog .p-dialog-content {
+  overflow: visible;
+}
+
+/* Header */
+.ef-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: var(--p-text-color);
+}
+
+/* Body */
+.ef-body {
+  padding: 1.25rem 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: calc(100vh - 11rem);
+  overflow-y: auto;
+  overflow-x: visible;
+}
+
+/* Type toggle buttons */
+.ef-type-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.ef-type-btn {
+  padding: 0.55rem 0;
+  border: 1px solid var(--p-surface-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p-text-muted-color);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ef-type-btn:hover {
+  border-color: var(--p-primary-color);
+  color: var(--p-primary-color);
+}
+
+.ef-type-btn.active {
+  background: var(--p-primary-color);
+  border-color: var(--p-primary-color);
+  color: var(--p-primary-contrast-color);
+  font-weight: 600;
+}
+
+/* Form layout */
+.ef-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.ef-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ef-field input,
+.ef-field textarea {
+  width: 100%;
+}
+
+.ef-field textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+:host ::ng-deep .ef-field .p-datepicker,
+:host ::ng-deep .ef-field .p-select {
+  width: 100%;
+}
+
+/* Labels */
+.ef-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--p-text-muted-color);
+}
+
+/* Required star */
+.req {
+  color: var(--p-primary-color);
+}
+
+/* Errors */
+.ef-error {
+  font-size: 0.72rem;
+  color: var(--p-primary-color);
+}
+
+/* Appointment option */
+.ef-appt-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.ef-appt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Footer */
+.ef-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+/* Buttons */
+.ef-btn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+
+/* Ghost button */
+.ef-btn:not(.primary) {
+  background: transparent;
+  border-color: var(--p-surface-border);
+  color: var(--p-text-muted-color);
+}
+
+.ef-btn:not(.primary):hover {
+  border-color: var(--p-primary-color);
+  color: var(--p-primary-color);
+}
+
+/* Primary button */
+.ef-btn.primary {
+  background: var(--p-primary-color);
+  color: var(--p-primary-contrast-color);
+}
+
+.ef-btn.primary:hover {
+  background: var(--p-primary-hover-color);
+}

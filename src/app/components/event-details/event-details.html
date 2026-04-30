@@ -1,0 +1,57 @@
+<p-dialog
+  [visible]="visible()"
+  [modal]="true"
+  [closable]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="ed-dialog"
+  [style]="{ width: '380px' }"
+  (visibleChange)="onVisibleChange($event)"
+  (onHide)="dismiss()"
+>
+  @if (event(); as ev) {
+    <ng-template pTemplate="header">
+      <div class="ed-header">
+        <span class="ed-type-pill" [style.background]="colour">
+          {{ ev.type === 'appointment' ? 'Appointment' : 'Reminder' }}
+        </span>
+      </div>
+    </ng-template>
+
+    <div class="ed-body">
+      <h2 class="ed-title">{{ ev.title }}</h2>
+
+      <div class="ed-meta">
+        <div class="ed-meta-row">
+          <i class="pi pi-calendar ed-meta-icon"></i>
+          <span>{{ ev.date }}</span>
+        </div>
+        <div class="ed-meta-row">
+          <i class="pi pi-clock ed-meta-icon"></i>
+          <span>{{ ev.time }}</span>
+        </div>
+        @if (ev.appointmentType) {
+          <div class="ed-meta-row">
+            <span class="ed-appt-dot" [style.background]="colour"></span>
+            <span>{{ ev.appointmentType }}</span>
+          </div>
+        }
+      </div>
+
+      @if (ev.description) {
+        <p class="ed-description">{{ ev.description }}</p>
+      }
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="ed-footer">
+        <button class="ed-btn ed-btn-ghost" type="button" (click)="dismiss()">Close</button>
+        <button class="ed-btn ed-btn-danger" type="button" (click)="delete()">
+          <i class="pi pi-trash"></i> Delete
+        </button>
+      </div>
+    </ng-template>
+  }
+</p-dialog>

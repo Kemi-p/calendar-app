@@ -5,13 +5,15 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { HolidayApiResponse } from '../models/holiday';
 
+const HOLIDAY_CACHE_KEY = `medcal_holidays_${environment.holidayApi.country}_${environment.holidayApi.year}`;
+
 @Injectable({
   providedIn: 'root',
 })
 export class HolidayService {
   private http = inject(HttpClient);
   private cache = new Map<string, string>();
-  private fetched = false;
+  private fetched = this.loadFromStorage();
 
   getHolidays(): Observable<Map<string, string>> {
     if (this.fetched) {
@@ -29,8 +31,27 @@ export class HolidayService {
           this.cache.set(h.date, h.name);
         });
         this.fetched = true;
+        this.saveToStorage();
       }),
       map(() => this.cache),
     );
+  }
+
+  private loadFromStorage(): boolean {
+    try {
+      const raw = localStorage.getItem(HOLIDAY_CACHE_KEY);
+      if (!raw) return false;
+
+      this.cache = new Map<string, string>(JSON.parse(raw));
+      return this.cache.size > 0;
+    } catch {
+      return false;
+    }
+  }
+
+  private saveToStorage(): void {
+    try {
+      localStorage.setItem(HOLIDAY_CACHE_KEY, JSON.stringify([...this.cache]));
+    } catch {}
   }
 }

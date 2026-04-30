@@ -1,0 +1,131 @@
+::ng-deep .ed-dialog .p-dialog {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+}
+
+::ng-deep .ed-dialog .p-dialog-header {
+  background: var(--p-surface-card);
+  border-bottom: 1px solid var(--p-surface-border);
+  padding: 1rem 1.5rem 0.75rem;
+}
+
+::ng-deep .ed-dialog .p-dialog-content {
+  background: var(--p-surface-card);
+  padding: 0;
+}
+
+::ng-deep .ed-dialog .p-dialog-footer {
+  background: var(--p-surface-card);
+  border-top: 1px solid var(--p-surface-border);
+  padding: 0.9rem 1.5rem;
+}
+
+.ed-header {
+  display: flex;
+  align-items: center;
+}
+
+.ed-type-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+.ed-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ed-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--p-text-color);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.ed-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ed-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--p-text-muted-color);
+}
+
+.ed-meta-icon {
+  font-size: 0.8rem;
+  color: var(--p-primary-color);
+}
+
+.ed-appt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ed-description {
+  font-size: 0.85rem;
+  color: var(--p-text-muted-color);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--p-surface-ground);
+  border-radius: 8px;
+  border-left: 3px solid var(--p-primary-color);
+}
+
+.ed-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.ed-btn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.ed-btn-ghost {
+  background: transparent;
+  border-color: var(--p-surface-border);
+  color: var(--p-text-muted-color);
+}
+
+.ed-btn-ghost:hover {
+  border-color: var(--p-primary-color);
+  color: var(--p-primary-color);
+}
+
+.ed-btn-danger {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+.ed-btn-danger:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+}

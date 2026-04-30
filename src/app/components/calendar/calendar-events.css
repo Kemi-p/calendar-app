@@ -1,0 +1,97 @@
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+.event-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  font-size: 0.62rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  transition: filter 0.1s;
+  flex-shrink: 0;
+}
+
+.event-badge:hover {
+  filter: brightness(0.88);
+}
+
+.event-badge .pi {
+  font-size: 0.58rem;
+  flex-shrink: 0;
+}
+
+.week-events-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 56px repeat(7, 1fr);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.week-events-col {
+  position: relative;
+  border-right: 1px solid transparent;
+}
+
+.week-event-strip {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1px;
+  cursor: pointer;
+  pointer-events: auto;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition:
+    filter 0.1s,
+    box-shadow 0.1s;
+}
+
+.week-event-strip:hover {
+  filter: brightness(0.88);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.week-strip-time {
+  font-size: 0.6rem;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.week-strip-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -11,11 +11,12 @@ export class ReminderService implements OnDestroy {
   readonly triggered = signal<CalEvent | null>(null);
   readonly showBlock = signal(false);
 
-  // Track which event IDs have already fired today so i don't repeat
   private readonly fired = new Set<string>();
 
   start(): void {
-    this.check();
+    if (this.intervalId) return;
+
+    this.markCurrentMinuteAsHandled();
     this.intervalId = setInterval(() => this.check(), 60_000);
   }
 
@@ -42,7 +43,18 @@ export class ReminderService implements OnDestroy {
       this.triggered.set(due);
       this.showBlock.set(true);
 
-      setTimeout(() => this.showBlock.set(false), 4000);
+      setTimeout(() => this.showBlock.set(false), 7000);
     }
+  }
+
+  private markCurrentMinuteAsHandled(): void {
+    const now = new Date();
+    const todayKey = format(now, 'yyyy-MM-dd');
+    const nowTime = format(now, 'HH:mm');
+
+    this.eventService
+      .getByDate(todayKey)
+      .filter((e) => e.time === nowTime)
+      .forEach((e) => this.fired.add(e.id));
   }
 }

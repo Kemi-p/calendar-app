@@ -7,14 +7,11 @@ import { Calendar } from './components/calendar/calendar';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements OnInit {
-  protected readonly title = signal('calendar-app');
+export class App {
   readonly isDark = signal(false);
 
-  ngOnInit(): void {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.isDark.set(prefersDark);
-    this.applyTheme(prefersDark);
+  constructor() {
+    this.applyTheme(false);
   }
 
   toggleDark(): void {

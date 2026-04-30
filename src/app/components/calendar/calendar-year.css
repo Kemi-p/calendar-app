@@ -1,0 +1,84 @@
+.year-view {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--p-surface-border);
+  overflow: hidden;
+}
+
+.year-month {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  background: var(--p-surface-card);
+  cursor: pointer;
+  transition: background-color 0.15s;
+  gap: 0.4rem;
+  overflow: hidden;
+}
+
+.year-month:hover {
+  background: var(--p-primary-hover-color);
+}
+
+.year-month.current-month {
+  background: var(--p-highlight-background);
+}
+
+.year-month-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--p-text-color);
+  margin: 0;
+}
+
+.year-month.current-month .year-month-label {
+  color: var(--p-primary-color);
+}
+
+.mini-dow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.mini-dow span {
+  font-size: 0.55rem;
+  text-align: center;
+  color: var(--p-text-color);
+  font-weight: 700;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  flex: 1;
+}
+
+.mini-day {
+  font-size: 0.6rem;
+  text-align: center;
+  color: var(--p-text-color);
+  border-radius: 3px;
+  padding: 1px 0;
+  line-height: 1.6;
+}
+
+.mini-day.other-month {
+  opacity: 0;
+}
+
+.mini-day.today {
+  background: var(--p-primary-color);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+.mini-day.weekend:not(.other-month) {
+  color: var(--p-primary-color);
+  font-weight: 700;
+}

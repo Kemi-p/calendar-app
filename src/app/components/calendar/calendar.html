@@ -1,3 +1,24 @@
+@if (showBlock()) {
+  <div class="cal-reminder-overlay" (click)="dismissBlock()">
+    <div class="blockui-spinner">
+      <i class="pi pi-spin pi-spinner"></i>
+    </div>
+    <p class="blockui-title">
+      {{ reminderService.triggered()?.type === 'reminder' ? 'Reminder' : 'Appointment' }}
+    </p>
+    <p class="blockui-desc">{{ reminderService.triggered()?.title }}</p>
+    <p class="blockui-hint">Click anywhere to dismiss</p>
+  </div>
+}
+
+@defer (when showForm()) {
+  <app-event-form [visible]="showForm()" [initialDate]="formDate()" (close)="closeForm()" />
+}
+
+@defer (when showDetail()) {
+  <app-event-details [visible]="showDetail()" [event]="detailEvent()" (close)="closeDetail()" />
+}
+
 <div class="cal-shell">
   <aside class="cal-sidebar">
     <div class="brand">
@@ -5,16 +26,43 @@
       <span class="brand-name">Staff Calendar</span>
     </div>
 
+    <button
+      class="add-event-btn"
+      type="button"
+      (click)="openFormBlank()"
+      aria-label="Create new event"
+    >
+      <i class="pi pi-plus" aria-hidden="true"></i> New Event
+    </button>
+
     <nav class="sidebar-nav">
       <p class="nav-label">View</p>
-      <button class="view-btn" [class.active]="activeView() === 'month'" (click)="setView('month')">
-        <i class="pi pi-calendar"></i> Month
+      <button
+        class="view-btn"
+        [class.active]="activeView() === 'month'"
+        (click)="setView('month')"
+        aria-label="Switch to month view"
+        [attr.aria-pressed]="activeView() === 'month'"
+      >
+        <i class="pi pi-calendar" aria-hidden="true"></i> Month
       </button>
-      <button class="view-btn" [class.active]="activeView() === 'week'" (click)="setView('week')">
-        <i class="pi pi-table"></i> Week
+      <button
+        class="view-btn"
+        [class.active]="activeView() === 'week'"
+        (click)="setView('week')"
+        aria-label="Switch to week view"
+        [attr.aria-pressed]="activeView() === 'week'"
+      >
+        <i class="pi pi-table" aria-hidden="true"></i> Week
       </button>
-      <button class="view-btn" [class.active]="activeView() === 'year'" (click)="setView('year')">
-        <i class="pi pi-th-large"></i> Year
+      <button
+        class="view-btn"
+        [class.active]="activeView() === 'year'"
+        (click)="setView('year')"
+        aria-label="Switch to year view"
+        [attr.aria-pressed]="activeView() === 'year'"
+      >
+        <i class="pi pi-th-large" aria-hidden="true"></i> Year
       </button>
     </nav>
 
@@ -22,12 +70,12 @@
     <button
       class="dark-btn"
       (click)="onDarkToggle()"
-      [title]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+      [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
     >
       @if (isDark()) {
-        <i class="pi pi-sun"></i>
+        <i class="pi pi-sun" aria-hidden="true"></i>
       } @else {
-        <i class="pi pi-moon"></i>
+        <i class="pi pi-moon" aria-hidden="true"></i>
       }
     </button>
   </aside>
@@ -38,20 +86,22 @@
         <h1 class="cal-title">
           {{ displayMonth() }}&nbsp;<span class="cal-year">{{ displayYear() }}</span>
         </h1>
-        <button class="today-btn" (click)="goToToday()">Today</button>
+        <button class="today-btn" (click)="goToToday()" aria-label="Navigate to today's date">
+          Today
+        </button>
       </div>
       <div class="nav-controls">
-        <button class="nav-btn" (click)="prev()"><i class="pi pi-chevron-circle-left"></i></button>
-        <button class="nav-btn" (click)="next()"><i class="pi pi-chevron-circle-right"></i></button>
+        <button class="nav-btn" (click)="prev()" aria-label="Go to previous month">
+          <i class="pi pi-chevron-circle-left" aria-hidden="true"></i>
+        </button>
+        <button class="nav-btn" (click)="next()" aria-label="Go to next month">
+          <i class="pi pi-chevron-circle-right" aria-hidden="true"></i>
+        </button>
       </div>
     </header>
 
     @if (activeView() === 'month') {
       <div class="cal-body">
-        @if (isLoading()) {
-          <div class="status-bar loading">Loading public holidays…</div>
-        }
-
         @if (loadError()) {
           <div class="status-bar error">Could not load holidays. Calendar still works.</div>
         }
@@ -74,13 +124,40 @@
                 [class.weekend]="day.isWeekend"
                 [class.holiday]="day.isHoliday"
                 [title]="day.holidayName ?? ''"
+                (click)="openFormForDay(formatDateKey(day.date), $event)"
               >
-                <span class="day-number">{{ formatDay(day.date) }}</span>
+                <div class="day-cell-top">
+                  <span class="day-number">{{ formatDay(day.date) }}</span>
+                  @if (day.isHoliday && day.isCurrentMonth) {
+                    <span class="holiday-dot" [title]="day.holidayName!"></span>
+                  }
+                </div>
 
                 @if (day.isHoliday && day.isCurrentMonth) {
                   <div class="holiday-row">
-                    <span class="holiday-dot" [title]="day.holidayName!"></span>
                     <span class="holiday-label">{{ day.holidayName }}</span>
+                  </div>
+                }
+
+                @if (day.events && day.events.length > 0) {
+                  <div class="event-list">
+                    @for (ev of day.events; track ev.id) {
+                      <button
+                        class="event-badge"
+                        [style.background]="eventColour(ev)"
+                        [attr.aria-label]="ev.title + ' (' + ev.type + ')'"
+                        (click)="openDetail(ev, $event)"
+                        type="button"
+                      >
+                        <i
+                          class="pi"
+                          [class.pi-bookmark-fill]="ev.type === 'appointment'"
+                          [class.pi-bell]="ev.type === 'reminder'"
+                          aria-hidden="true"
+                        ></i>
+                        {{ ev.title }}
+                      </button>
+                    }
                   </div>
                 }
               </div>
@@ -109,18 +186,46 @@
         </div>
 
         <div class="week-body">
-          @for (hour of weekHours; track hour) {
-            <div class="week-row">
-              <div class="week-time">{{ formatHour(hour) }}</div>
-              @for (day of weekDays(); track day.date.toISOString()) {
-                <div
-                  class="week-cell"
-                  [class.today]="day.isToday"
-                  [class.weekend]="day.isWeekend"
-                ></div>
-              }
-            </div>
-          }
+          <div class="week-grid">
+            @for (hour of weekHours; track hour) {
+              <div class="week-row">
+                <div class="week-time">{{ formatHour(hour) }}</div>
+                @for (day of weekDays(); track day.date.toISOString()) {
+                  <div
+                    class="week-cell"
+                    [class.today]="day.isToday"
+                    [class.weekend]="day.isWeekend"
+                    (click)="openFormForDay(formatDateKey(day.date), $event)"
+                  ></div>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="week-events-overlay">
+            <div class="week-events-gutter"></div>
+
+            @for (day of weekDays(); track day.date.toISOString()) {
+              <div class="week-events-col">
+                @if (day.events) {
+                  @for (ev of day.events; track ev.id) {
+                    <button
+                      class="week-event-strip"
+                      [style.top]="eventStyle(ev).top"
+                      [style.height]="eventStyle(ev).height"
+                      [style.background]="eventStyle(ev).background"
+                      [attr.aria-label]="ev.title + ' at ' + ev.time + ' (' + ev.type + ')'"
+                      (click)="openDetail(ev, $event)"
+                      type="button"
+                    >
+                      <span class="week-strip-time">{{ ev.time }}</span>
+                      <span class="week-strip-title">{{ ev.title }}</span>
+                    </button>
+                  }
+                }
+              </div>
+            }
+          </div>
         </div>
       </div>
     }

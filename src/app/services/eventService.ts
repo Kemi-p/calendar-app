@@ -12,17 +12,20 @@ export class EventService {
   }
 
   add(event: Omit<CalEvent, 'id'>): void {
-    const newEvent: CalEvent = {
-      ...event,
-      id: crypto.randomUUID(),
-    };
-    this.events.update((all) => [...all, newEvent]);
-    this.save();
+    const newEvent: CalEvent = { ...event, id: crypto.randomUUID() };
+    this.events.update((all) => {
+      const next = [...all, newEvent];
+      this.persist(next);
+      return next;
+    });
   }
 
   remove(id: string): void {
-    this.events.update((all) => all.filter((e) => e.id !== id));
-    this.save();
+    this.events.update((all) => {
+      const next = all.filter((e) => e.id !== id);
+      this.persist(next);
+      return next;
+    });
   }
 
   private load(): CalEvent[] {
@@ -34,7 +37,9 @@ export class EventService {
     }
   }
 
-  private save(): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.events()));
+  private persist(events: CalEvent[]): void {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+    } catch {}
   }
 }
